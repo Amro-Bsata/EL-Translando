@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Edge Translator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0c0c0f;
+            --surface: #16161a;
+            --surface-hover: #1e1e24;
+            --border: #2a2a32;
+            --text: #e8e8ed;
+            --text-dim: #7a7a85;
+            --accent-de: #f5c542;
+            --accent-de-dim: rgba(245,197,66,0.12);
+            --accent-en: #42a5f5;
+            --accent-en-dim: rgba(66,165,245,0.12);
+            --danger: #ef4444;
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+        h1 span { color: var(--text); font-weight: 700; }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* ---- Language Card ---- */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: border-color 0.3s;
+        }
+        .card:hover { border-color: #3a3a44; }
+        .card.is-de .accent-bar { background: var(--accent-de); }
+        .card.is-en .accent-bar { background: var(--accent-en); }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .accent-bar {
+            width: 4px;
+            height: 28px;
+            border-radius: 2px;
+        }
+        .lang-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .flag {
+            font-size: 1.5rem;
+            margin-left: auto;
+        }
+
+        /* ---- Controls ---- */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+        .btn:hover:not(:disabled) {
+            background: var(--surface-hover);
+            border-color: #444;
+        }
+        .btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .btn-mic {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+        }
+        .btn-mic.recording {
+            background: var(--danger);
+            border-color: var(--danger);
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+        .btn-replay {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+        }
+
+        .text-input {
+            flex: 1;
+            font-family: inherit;
+            font-size: 0.9rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .text-input::placeholder { color: var(--text-dim); }
+        .text-input:focus { border-color: #555; }
+
+        .btn-send {
+            padding: 0.7rem 1.2rem;
+        }
+        .card.is-de .btn-send:hover:not(:disabled) { background: var(--accent-de-dim); border-color: var(--accent-de); color: var(--accent-de); }
+        .card.is-en .btn-send:hover:not(:disabled) { background: var(--accent-en-dim); border-color: var(--accent-en); color: var(--accent-en); }
+
+        /* Status & Transcript */
+        .status-line {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            min-height: 1.2em;
+            margin-top: 0.5rem;
+        }
+        .transcript {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            padding: 0.6rem 0.75rem;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            margin-top: 0.5rem;
+            display: none;
+            line-height: 1.5;
+        }
+        .transcript strong { color: var(--text); font-weight: 600; }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.5); }
+            50% { box-shadow: 0 0 0 12px rgba(239,68,68,0); }
+        }
+
+        /* Waveform indicator */
+        .wave-dots {
+            display: none;
+            gap: 3px;
+            align-items: center;
+            margin-left: 0.5rem;
+        }
+        .wave-dots.active { display: flex; }
+        .wave-dot {
+            width: 4px;
+            border-radius: 2px;
+            background: var(--danger);
+            animation: wave 0.6s ease-in-out infinite alternate;
+        }
+        .wave-dot:nth-child(1) { height: 8px; animation-delay: 0s; }
+        .wave-dot:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+        .wave-dot:nth-child(3) { height: 10px; animation-delay: 0.3s; }
+        .wave-dot:nth-child(4) { height: 16px; animation-delay: 0.1s; }
+        .wave-dot:nth-child(5) { height: 6px; animation-delay: 0.25s; }
+
+        @keyframes wave {
+            to { height: 4px; }
+        }
+    </style>
+</head>
+<body>
+
+<h1><span>Edge</span> Translator</h1>
+
+<div class="container">
+
+    <!-- DEUTSCH -->
+    <div class="card is-de" id="card-de">
+        <div class="card-header">
+            <div class="accent-bar"></div>
+            <div class="lang-label">Deutsch → English</div>
+            <div class="flag">🇩🇪</div>
+        </div>
+        <div class="controls">
+            <div class="row">
+                <button class="btn btn-mic" id="mic-de" title="Aufnehmen">🎤</button>
+                <div class="wave-dots" id="wave-de">
+                    <div class="wave-dot"></div><div class="wave-dot"></div>
+                    <div class="wave-dot"></div><div class="wave-dot"></div>
+                    <div class="wave-dot"></div>
+                </div>
+                <div style="flex:1"></div>
+                <button class="btn btn-replay" id="replay-de" disabled title="Wiederholen">🔁</button>
+            </div>
+            <div class="row">
+                <input type="text" class="text-input" id="text-de" placeholder="Oder Text eingeben…">
+                <button class="btn btn-send" id="send-de">Senden ↗</button>
+            </div>
+        </div>
+        <div class="status-line" id="status-de">Bereit</div>
+        <div class="transcript" id="transcript-de"></div>
+    </div>
+
+    <!-- ENGLISH -->
+    <div class="card is-en" id="card-en">
+        <div class="card-header">
+            <div class="accent-bar"></div>
+            <div class="lang-label">English → Deutsch</div>
+            <div class="flag">🇬🇧</div>
+        </div>
+        <div class="controls">
+            <div class="row">
+                <button class="btn btn-mic" id="mic-en" title="Record">🎤</button>
+                <div class="wave-dots" id="wave-en">
+                    <div class="wave-dot"></div><div class="wave-dot"></div>
+                    <div class="wave-dot"></div><div class="wave-dot"></div>
+                    <div class="wave-dot"></div>
+                </div>
+                <div style="flex:1"></div>
+                <button class="btn btn-replay" id="replay-en" disabled title="Replay">🔁</button>
+            </div>
+            <div class="row">
+                <input type="text" class="text-input" id="text-en" placeholder="Or type text…">
+                <button class="btn btn-send" id="send-en">Send ↗</button>
+            </div>
+        </div>
+        <div class="status-line" id="status-en">Ready</div>
+        <div class="transcript" id="transcript-en"></div>
+    </div>
+
+</div>
+
+<script>
+// --- Konfiguration ---
+// Leerer String = gleicher Host (kein CORS nötig wenn auf dem Pi gehostet)
+const BASE = window.location.origin;
+
+// --- State ---
+let mediaRecorder = null;
+let chunks = [];
+let recording = false;
+let currentLang = null;
+const lastAudio = { de: null, en: null };
+
+// --- DOM ---
+const el = (id) => document.getElementById(id);
+
+// --- Event Listeners ---
+['de', 'en'].forEach(lang => {
+    el(`mic-${lang}`).onclick = () => toggleRecording(lang);
+    el(`send-${lang}`).onclick = () => sendText(lang);
+    el(`replay-${lang}`).onclick = () => { if (lastAudio[lang]) playUrl(lastAudio[lang]); };
+    el(`text-${lang}`).addEventListener('keydown', e => { if (e.key === 'Enter') sendText(lang); });
+});
+
+// --- Recording ---
+async function toggleRecording(lang) {
+    if (recording && currentLang === lang) return stopRec(lang);
+    if (recording) return; // andere Sprache nimmt auf
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        chunks = [];
+        currentLang = lang;
+        recording = true;
+
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.onstop = () => {
+            stream.getTracks().forEach(t => t.stop());
+            const blob = new Blob(chunks, { type: 'audio/wav' });
+            uploadAudio(lang, blob);
+        };
+        mediaRecorder.start();
+
+        setStatus(lang, lang === 'de' ? 'Nimmt auf…' : 'Recording…');
+        el(`mic-${lang}`).classList.add('recording');
+        el(`mic-${lang}`).textContent = '■';
+        el(`wave-${lang}`).classList.add('active');
+        el(`mic-${otherLang(lang)}`).disabled = true;
+    } catch (err) {
+        setStatus(lang, 'Mikrofon-Fehler');
+    }
+}
+
+function stopRec(lang) {
+    if (!mediaRecorder) return;
+    mediaRecorder.stop();
+    recording = false;
+    el(`mic-${lang}`).classList.remove('recording');
+    el(`mic-${lang}`).textContent = '🎤';
+    el(`wave-${lang}`).classList.remove('active');
+    el(`mic-${otherLang(lang)}`).disabled = false;
+    setStatus(lang, lang === 'de' ? 'Verarbeitet…' : 'Processing…');
+}
+
+// --- Audio Upload ---
+function uploadAudio(lang, blob) {
+    const fd = new FormData();
+    fd.append('audio_data', blob, 'recording.wav');
+    const endpoint = lang === 'de' ? '/upload_de' : '/upload_en';
+
+    fetch(BASE + endpoint, { method: 'POST', body: fd })
+        .then(r => r.json())
+        .then(data => handleSuccess(lang, data))
+        .catch(err => handleError(lang, err));
+}
+
+// --- Text Upload ---
+function sendText(lang) {
+    const input = el(`text-${lang}`);
+    const text = input.value.trim();
+    if (!text) return;
+
+    setStatus(lang, lang === 'de' ? 'Verarbeitet…' : 'Processing…');
+    const endpoint = lang === 'de' ? '/upload_text_de' : '/upload_text_en';
+
+    fetch(BASE + endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+    })
+    .then(r => r.json())
+    .then(data => { handleSuccess(lang, data); input.value = ''; })
+    .catch(err => handleError(lang, err));
+}
+
+// --- Response Handling ---
+function handleSuccess(lang, data) {
+    if (data.status !== 'success') {
+        setStatus(lang, 'Fehler: ' + (data.error || data.message || '?'));
+        return;
+    }
+    setStatus(lang, lang === 'de' ? 'Bereit' : 'Ready');
+
+    // Transcript anzeigen
+    if (data.translated) {
+        const t = el(`transcript-${lang}`);
+        let html = `<strong>→ ${data.translated}</strong>`;
+        if (data.original) html = `${data.original}<br>` + html;
+        t.innerHTML = html;
+        t.style.display = 'block';
+    }
+
+    // Audio abspielen
+    if (data.audio_url) {
+        const url = BASE + data.audio_url;
+        playUrl(url);
+        lastAudio[lang] = url;
+        el(`replay-${lang}`).disabled = false;
+    }
+}
+
+function handleError(lang, err) {
+    console.error(err);
+    setStatus(lang, 'Server-Fehler');
+}
+
+// --- Helpers ---
+function setStatus(lang, msg) { el(`status-${lang}`).textContent = msg; }
+function otherLang(l) { return l === 'de' ? 'en' : 'de'; }
+function playUrl(url) {
+    new Audio(url).play().catch(e => console.error('Playback error:', e));
+}
+</script>
+</body>
+</html>

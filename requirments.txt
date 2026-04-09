@@ -1,0 +1,9 @@
+faster-whisper 
+transformers 
+flask 
+flask-cors 
+soundfile 
+piper-tts
+transformers[torch] 
+sentencepiece 
+sacremoses
