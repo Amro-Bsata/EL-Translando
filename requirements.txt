@@ -1,0 +1,45 @@
+# ============================================================
+# El-Translando - Python dependencies
+# Tested on: Arduino UNO Q (Debian, ARM Cortex-A53), Python 3.10+
+# Install:   pip install -r requirements.txt
+# ============================================================
+
+# --- Web server (main.py) ---
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.9
+pydantic>=2.6.0
+
+# --- Speech-to-Text (util.py) ---
+# faster-whisper uses CTranslate2 backend, optimized for CPU/ARM
+faster-whisper>=1.0.0
+ctranslate2>=4.0.0
+
+# --- Machine Translation (util.py) ---
+transformers>=4.40.0
+# PyTorch CPU build — for ARM use the official wheel index
+torch>=2.0.0
+sentencepiece>=0.2.0
+sacremoses>=0.1.0
+
+# --- Text-to-Speech (util.py) ---
+# pyttsx3 wraps eSpeak-NG on Linux. Install eSpeak-NG via apt:
+#   sudo apt install espeak-ng libespeak-ng1
+pyttsx3>=2.90
+
+# --- Audio I/O ---
+soundfile>=0.12.0
+numpy>=1.24.0
+
+# --- Optional: tunneling for remote testing ---
+pyngrok>=7.0.0
+
+# --- Benchmark client ---
+requests>=2.31.0
+
+# --- Resource monitor ---
+psutil>=5.9.0
+
+# --- Quality evaluation ---
+sacrebleu>=2.4.0
+jiwer>=3.0.0

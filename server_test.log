@@ -1,0 +1,36 @@
+[STARTUP] Preloading models...
+==================================================
+Loading all models...
+[INIT] Loading Whisper 'tiny' (device=cpu, compute=int8)...
+[INIT] Whisper loaded.
+[INIT] Loading translation model DE-EN: Helsinki-NLP/opus-mt-de-en
+[INIT] DE-EN loaded.
+[INIT] Loading translation model EN-DE: Helsinki-NLP/opus-mt-en-de
+[INIT] EN-DE loaded.
+All models loaded!
+==================================================
+[STARTUP] Ready.
+INFO:     127.0.0.1:60178 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54794 - "GET /info HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54794 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54794 - "GET /ui HTTP/1.1" 200 OK
+[TRANSLATE] DE->EN: 'Guten Morgen, wie geht es dir?' -> 'Good morning, how are you?'
+[TTS-pyttsx3] Saved: outputs\temp_1777800860902.wav
+[STEREO] Loaded: outputs\temp_1777800860902.wav | SR=22050 | Shape=(58410,)
+INFO:     127.0.0.1:54797 - "POST /translate/text HTTP/1.1" 200 OK
+[TRANSLATE] EN->DE: 'The weather is nice today.' -> 'Das Wetter ist heute schön.'
+[TTS-pyttsx3] Saved: outputs\temp_1777800872557.wav
+[STEREO] Loaded: outputs\temp_1777800872557.wav | SR=22050 | Shape=(53227,)
+INFO:     127.0.0.1:54799 - "POST /translate/text HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54799 - "GET /outputs/_right_1777800872557.wav HTTP/1.1" 404 Not Found
+[TRANSLATE] DE->EN: 'Das Wetter ist schön.' -> 'The weather is nice.'
+[TTS-pyttsx3] Saved: outputs\temp_1777800899721.wav
+[STEREO] Loaded: outputs\temp_1777800899721.wav | SR=22050 | Shape=(45511,)
+INFO:     127.0.0.1:61821 - "POST /translate/text HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62019 - "GET /outputs/output_left_1777800860902.wav HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62019 - "GET /outputs/nichtda.wav HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62019 - "POST /translate/text HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:62019 - "POST /translate/text HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:62019 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62021 - "POST /translate/text HTTP/1.1" 422 Unprocessable Entity
+INFO:     127.0.0.1:62021 - "POST /translate/audio HTTP/1.1" 422 Unprocessable Entity

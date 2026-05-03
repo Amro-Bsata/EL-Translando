@@ -1,0 +1,11 @@
+# ============================================================
+# El-Translando CLIENT - runs on your laptop / PC
+# Install: pip install -r requirements_client.txt
+# ============================================================
+
+requests>=2.31.0      # HTTP requests to the server
+soundfile>=0.12.0     # to read audio durations
+
+# Only needed if you use --mode tts in client_audio_test.py
+# (auto-generates test audio via local TTS)
+pyttsx3>=2.90

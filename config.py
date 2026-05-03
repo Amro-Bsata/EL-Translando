@@ -8,14 +8,14 @@ import os
 PORT = 5000
 HOST = "0.0.0.0"
 DEBUG = False
-# --- Ordner ---Du bist wundertoll! --- (Uploads, Outputs, Static Content)
+
+# --- Ordner ---
 UPLOAD_FOLDER = "uploads"
 OUTPUT_FOLDER = "outputs"
-STATIC_FOLDER = "static_content"
 
-# --- Ngrok (optional, aus Umgebungsvariable laden!) ---
-NGROK_AUTH_TOKEN = os.environ.get("NGROK_AUTH_TOKEN", "2wBKuYE4bKdMKyArayVrYKEuldK_29suq6Fij4pnp1BJBkSpr")
-NGROK_DOMAIN = os.environ.get("NGROK_DOMAIN", "noncollapsible-garfield-odorously.ngrok-free.dev")
+# --- Ngrok (optional) ---
+NGROK_AUTH_TOKEN = os.environ.get("NGROK_AUTH_TOKEN", "")
+NGROK_DOMAIN = os.environ.get("NGROK_DOMAIN", "")
 
 # --- Whisper (STT) ---
 # "tiny" = ~39MB VRAM, schnellster; "base" = ~74MB, guter Kompromiss
@@ -30,12 +30,22 @@ WHISPER_COMPUTE_TYPE = "int8"
 TRANSLATION_MODEL_DE_EN = "Helsinki-NLP/opus-mt-de-en"
 TRANSLATION_MODEL_EN_DE = "Helsinki-NLP/opus-mt-en-de"
 
-# --- TTS (Piper — bereits edge-optimiert) ---
-PIPER_BINARY = "piper"
-PIPER_MODEL_EN = "en_GB-jenny_dioco-medium.onnx"
-PIPER_MODEL_DE = "de_DE-thorsten-medium.onnx"
+# --- TTS (pyttsx3 — nutzt OS-native Engines: eSpeak-NG auf Linux) ---
+# Vorteil: ~10-50x schneller als Piper. Nachteil: robotischer Klang.
+# Rate = Wörter pro Minute (Default 200). 150-180 wirkt natürlicher.
+TTS_RATE = 170
+# Lautstärke (0.0 – 1.0)
+TTS_VOLUME = 1.0
+# Voice-Identifier: Substring, gegen den voice.id bzw. voice.name gematcht wird.
+# Auf Linux/eSpeak sind typische IDs "english", "german" oder Locale-Codes "en", "de".
+TTS_VOICE_EN = "english"
+TTS_VOICE_DE = "german"
+
+
+
+PIPER_MODEL_DE = "models/de_DE-thorsten-low.onnx"
+PIPER_MODEL_EN = "models/en_US-amy-low.onnx"
 
 # --- Ordner erstellen ---
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
-os.makedirs(STATIC_FOLDER, exist_ok=True)

@@ -1,0 +1,60 @@
+{
+  "language": "en",
+  "buckets": {
+    "very_short": {
+      "word_range": [1, 3],
+      "sentences": [
+        "Hello.",
+        "How are you?",
+        "Thank you.",
+        "Please slower.",
+        "Where are we?",
+        "I don't understand."
+      ]
+    },
+    "short": {
+      "word_range": [4, 7],
+      "sentences": [
+        "Where is the nearest train station?",
+        "I would like a coffee.",
+        "How much does this cost?",
+        "Can you please help me?",
+        "The weather is nice today.",
+        "I need a doctor."
+      ]
+    },
+    "medium": {
+      "word_range": [8, 14],
+      "sentences": [
+        "Excuse me, could you tell me how to get to the hotel?",
+        "I left my passport in the hotel room, what should I do?",
+        "When does the next train to Munich leave from the main station?",
+        "Could you recommend a good restaurant nearby for tonight?",
+        "I would like to book a double room for three nights.",
+        "Is there a pharmacy nearby that is open right now?"
+      ]
+    },
+    "long": {
+      "word_range": [15, 22],
+      "sentences": [
+        "Thank you so much for all your help today, that was really kind of you and I really appreciate it.",
+        "I have unfortunately lost my smartphone and urgently need help to contact my family and let them know I am safe.",
+        "Could you please explain how I can get from here to the airport using public transport and how long it will take?",
+        "I am new to this city and looking for affordable accommodation for the next week, do you have any recommendation for me?",
+        "Sorry to bother you, but could you tell me where the nearest bank is so that I can withdraw some cash?",
+        "I have a medical issue and urgently need a doctor who speaks English or German, can you recommend someone to me?"
+      ]
+    },
+    "very_long": {
+      "word_range": [23, 35],
+      "sentences": [
+        "We got lost on the way to our reservation and couldn't find the entrance, could you please explain the best way to reach the main entrance without having to walk through the construction site?",
+        "My friend got injured while hiking and cannot walk properly anymore, we urgently need a taxi or an ambulance to take us back to the hotel or to the nearest hospital.",
+        "I am planning a business trip to Berlin next week and looking for a hotel near the conference center that also offers fast Wi-Fi, a meeting room and a vegetarian breakfast option.",
+        "Could you please explain in detail which sights we should absolutely visit in the next two days, given that we are particularly interested in history, architecture and local cuisine and would prefer not to walk too much?",
+        "We just realized that our rental car has a flat tire and we don't have any tools with us, could you please tell us if there is a garage nearby or who else we could ask for help?",
+        "My child has had a high fever since last night and is no longer eating anything, we are starting to worry and would like to know if there is a pediatrician nearby who also treats emergencies outside of normal opening hours."
+      ]
+    }
+  }
+}

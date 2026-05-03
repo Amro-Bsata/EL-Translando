@@ -1,0 +1,14 @@
+C:\Users\Sam\Desktop\EL-Translando\EL-Translando\main.py:313: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [31012]
+INFO:     Waiting for application startup.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/258 [00:00<?, ?it/s]Loading weights: 100%|##########| 258/258 [00:00<00:00, 19212.94it/s]
+Loading weights:   0%|          | 0/258 [00:00<?, ?it/s]Loading weights: 100%|##########| 258/258 [00:00<00:00, 17884.98it/s]
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)

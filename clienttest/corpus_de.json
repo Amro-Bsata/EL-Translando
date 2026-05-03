@@ -1,0 +1,60 @@
+{
+  "language": "de",
+  "buckets": {
+    "very_short": {
+      "word_range": [1, 3],
+      "sentences": [
+        "Hallo.",
+        "Wie geht's?",
+        "Danke schön.",
+        "Bitte langsamer.",
+        "Wo sind wir?",
+        "Ich verstehe nicht."
+      ]
+    },
+    "short": {
+      "word_range": [4, 7],
+      "sentences": [
+        "Wo ist der nächste Bahnhof?",
+        "Ich hätte gerne einen Kaffee.",
+        "Wie viel kostet das hier?",
+        "Können Sie mir bitte helfen?",
+        "Das Wetter ist heute schön.",
+        "Ich brauche einen Arzt."
+      ]
+    },
+    "medium": {
+      "word_range": [8, 14],
+      "sentences": [
+        "Entschuldigung, könnten Sie mir den Weg zum Hotel erklären?",
+        "Ich habe meinen Pass im Hotelzimmer vergessen, was soll ich tun?",
+        "Wann fährt der nächste Zug nach München vom Hauptbahnhof ab?",
+        "Können Sie mir ein gutes Restaurant in der Nähe empfehlen?",
+        "Ich möchte gerne ein Doppelzimmer für drei Nächte buchen.",
+        "Gibt es hier in der Nähe eine Apotheke, die geöffnet hat?"
+      ]
+    },
+    "long": {
+      "word_range": [15, 22],
+      "sentences": [
+        "Vielen Dank für Ihre Hilfe heute, das war wirklich sehr nett von Ihnen, ich weiß das sehr zu schätzen.",
+        "Ich habe leider mein Smartphone verloren und brauche dringend Hilfe, um meine Familie zu kontaktieren und ihnen Bescheid zu geben.",
+        "Können Sie mir bitte erklären, wie ich von hier aus mit öffentlichen Verkehrsmitteln zum Flughafen komme und wie lange das dauert?",
+        "Ich bin neu in dieser Stadt und suche eine günstige Unterkunft für die nächste Woche, haben Sie vielleicht eine Empfehlung für mich?",
+        "Entschuldigen Sie die Störung, aber könnten Sie mir vielleicht sagen, wo sich die nächste Bank befindet, an der ich Geld abheben kann?",
+        "Ich habe ein medizinisches Problem und brauche dringend einen Arzt, der Englisch oder Deutsch spricht, können Sie mir jemanden empfehlen?"
+      ]
+    },
+    "very_long": {
+      "word_range": [23, 35],
+      "sentences": [
+        "Wir haben uns bei der Reservierung verlaufen und konnten den Eingang nicht finden, könnten Sie uns bitte erklären, wie wir am besten zum Haupteingang kommen, ohne durch die Baustelle zu müssen?",
+        "Mein Freund hat sich beim Wandern verletzt und kann nicht mehr richtig laufen, wir bräuchten dringend ein Taxi oder einen Krankenwagen, der uns zurück zum Hotel oder zum nächsten Krankenhaus bringt.",
+        "Ich plane eine Geschäftsreise nach Berlin nächste Woche und suche ein Hotel in der Nähe des Konferenzzentrums, das auch über schnelles WLAN, einen Konferenzraum und ein vegetarisches Frühstück verfügt.",
+        "Könnten Sie mir bitte ausführlich erklären, welche Sehenswürdigkeiten wir in den nächsten zwei Tagen unbedingt besichtigen sollten, wenn wir uns besonders für Geschichte, Architektur und lokale Küche interessieren und nicht zu viel laufen wollen?",
+        "Wir haben gerade festgestellt, dass unser Mietwagen einen Platten hat und wir keine Werkzeuge dabeihaben, könnten Sie uns bitte sagen, ob es in der Nähe eine Werkstatt gibt oder wen wir sonst um Hilfe bitten können?",
+        "Mein Kind hat seit gestern Abend hohes Fieber und nimmt keine Nahrung mehr zu sich, wir machen uns langsam Sorgen und würden gerne wissen, ob es hier in der Nähe einen Kinderarzt gibt, der auch außerhalb der normalen Öffnungszeiten Notfälle behandelt."
+      ]
+    }
+  }
+}

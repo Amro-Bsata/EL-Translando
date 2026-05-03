@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Runtime data (generated at runtime, not part of source)
+uploads/
+outputs/
+tts_out/
+server_logs/
+clienttest/client_logs/
+
+
+
+# Benchmark and monitoring output data
+resources_full.csv
+tts_compare.csv
+
+# OS
+.DS_Store
+Thumbs.db
